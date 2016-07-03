@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var TimeParser = require(path + '/app/controllers/timeParser.server.js');
 
 module.exports = function (app, passport) {
 
@@ -14,11 +15,15 @@ module.exports = function (app, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
+	var timeParser = new TimeParser();
 
 	app.route('/')
-		.get(isLoggedIn, function (req, res) {
+		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
+	
+	app.route('/:date')
+		.get(timeParser.parseDate);
 
 	app.route('/login')
 		.get(function (req, res) {
