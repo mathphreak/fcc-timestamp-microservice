@@ -6,8 +6,6 @@ function TimeParser () {
         var rawData = req.params.date;
         var date = new Date(0);
         
-        console.log("Parsing " + rawData);
-        
         if (rawData == +rawData) {
             date.setTime(+rawData * 1000);
         } else {
@@ -20,8 +18,6 @@ function TimeParser () {
                 date.setMonth(date.getMonth() + 1);
             }
         }
-        
-        console.log("Got " + date);
         
         res.json({unix: date.getTime() / 1000, natural: date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})});
     };
